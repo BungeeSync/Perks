@@ -1,0 +1,152 @@
+options:
+    prefix: &8[&6Perks&8]
+    keinfallschaden: diamond boots named "&6Kein Fallschaden" with lore "&7Wenn du dieses Perk besitzt, bekommst du%nl%&7keinen Fallschaden mehr.%nl%&7Kosten: &e500.000$"
+    clearchat: paper named "&6ClearChat-Befehl" with lore "&7Wenn du dieses Perk besitzt, kannst du den Befehl%nl%&e/clearchat &7benutzen, um den Chat zu leeren.%nl%&7Kosten: &e200.000$"
+    startkick: oak sign named "&6StartKick-Befehl" with lore "&7Wenn du dieses Perk besitzt, kannst du den Befehl%nl%&e/startkick &7benutzen, um eine Abstimmung für einen Rauswurf zu starten.%nl%&7Kosten: &e750.000$"
+    slowchat: soul sand named "&6SlowChat-Befehl" with lore "&7Wenn du dieses Perk besitzt, kannst du den Befehl%nl%&e/slowchat &7benutzen, um den Chat zu verlangsamen.%nl%&7Kosten: &e250.000$"
+    mutep: barrier named "&6MuteP-Befehl" with lore "&7Wenn du dieses Perk besitzt, kannst du den Befehl%nl%&e/mutep &7benutzen, um einen Spieler für 15 Minuten zu muten.%nl%&7Kosten: &e1.000.000$"
+    keinhunger: cooked beef named "&6Kein Hunger" with lore "&7Wenn du dieses Perk besitzt, bekommst du%nl%&7keinen Hunger mehr.%nl%&7Kosten: &e250.000$"
+    schnelligkeit: potion of speed named "&6Schnelligkeit+" with lore "&7Wenn du dieses Perk besitzt, bist du%nl%&7viel schneller auf dem Server.%nl%&7Kosten: &e250.000$"
+    feuerresi: potion of fire resistance named "&6Feuerresistenz+" with lore "&7Wenn du dieses Perk besitzt, bekommst du%nl%&7keinen Feuerschaden mehr.%nl%&7Kosten: &e500.000$"
+    keinwasser: potion of long water breathing named "&6Unterwasseratmung+" with lore "&7Wenn du dieses Perk besitzt, bekommst du%nl%&7keinen Wasserschaden mehr.%nl%&7Kosten: &e250.000$"
+    stärke: potion of strong strength named "&6Stärke+" with lore "&7Wenn du dieses Perk besitzt, bekommst du%nl%&7einen dauerhaften Stärke-Effekt.%nl%&7Kosten: &e500.000$"
+    sprungkraft: potion of leaping named "&6Sprungkraft+" with lore "&7Wenn du dieses Perk besitzt, bekommst du%nl%&7einen dauerhaften Sprungkraft-Effekt.%nl%&7Kosten: &e250.000$"
+    keephotbar: chest named "&6KeepHotbar" with lore "&7Wenn du dieses Perk besitzt, verlierst du%nl%&7beim Tod deine Hotbar nicht mehr.%nl%&7Kosten: &e750.000$"
+    keepxp: xp bottle named "&6KeepXP" with lore "&7Wenn du dieses Perk besitzt, verlierst du%nl%&7beim Tod deine Erfahrungspunkte nicht mehr.%nl%&7Kosten: &e500.000$"
+    doppeltexp: xp bottle named "&6Doppelte XP" with lore "&7Wenn du dieses Perk besitzt, bekommst du%nl%&7immer die doppelten Erfahrungspunkte.%nl%&7Kosten: &e500.000$"
+    nachtsicht: glowstone dust named "&6Nachtsicht+" with lore "&7Wenn du dieses Perk besitzt, hast du%nl%&7einen dauerhaften Nachtsicht-Effekt.%nl%&7Kosten: &e250.000$"
+
+options:
+    kaufen: yellow stained glass pane named "&6Nicht verfügbar" with lore "&7Kaufe zuerst das Perk, um Einstellungen vornehmen zu können."
+    aktiviert: shiny lime stained glass pane named "&2Aktiviert" with lore "&7Klicke, um das Perk zu deaktivieren."
+    deaktiviert: shiny red stained glass pane named "&4Deaktiviert" with lore "&7Klicke, um das Perk zu aktivieren."
+    aktiviert2: shiny lime stained glass pane named "&2Aktiviert" with lore "&cDu kannst dieses Perk nicht deaktivieren."
+
+options:
+    ja: green terracotta with name "&2Ja" with lore "&7Klicke, um den Kauf zu bestätigen."
+    nein: red terracotta with name "&4Nein" with lore "&7Klicke, um den Kauf abzubrechen."
+
+command /perks [<string>]:
+    trigger:
+        open chest inventory with 6 rows named "&6Perks" to player
+        loop 54 times:
+            set slot {_slot} of player's current inventory to gray stained glass pane named " "
+            set slot 0 of player's current inventory to gray stained glass pane named " "
+            add 1 to {_slot}
+            set slot 1 of player's current inventory to {@keinfallschaden}
+            set slot 2 of player's current inventory to {@clearchat}
+            set slot 3 of player's current inventory to {@startkick}
+            set slot 5 of player's current inventory to {@slowchat}
+            set slot 6 of player's current inventory to {@mutep}
+            set slot 7 of player's current inventory to {@keinhunger}
+            set slot 20 of player's current inventory to {@schnelligkeit}
+            set slot 21 of player's current inventory to {@feuerresi}
+            set slot 22 of player's current inventory to {@keinwasser}
+            set slot 23 of player's current inventory to {@stärke}
+            set slot 24 of player's current inventory to {@sprungkraft}
+            set slot 38 of player's current inventory to {@keephotbar}
+            set slot 39 of player's current inventory to {@keepxp}
+            set slot 41 of player's current inventory to {@doppeltexp}
+            set slot 42 of player's current inventory to {@nachtsicht}
+        if player does not have the permission "perks.keinfallschaden":
+            set slot 10 of player's current inventory to {@kaufen}
+        else if {perks::keinfallschaden::%player's uuid%} = true:
+            set slot 10 of player's current inventory to {@aktiviert}
+        else:
+            set slot 10 of player's current inventory to {@deaktiviert}
+        if player does not have the permission "perks.clearchat":
+            set slot 11 of player's current inventory to {@kaufen}
+        else:
+            set slot 11 of player's current inventory to {@aktiviert2}
+        if player does not have the permission "perks.startkick":
+            set slot 11 of player's current inventory to {@kaufen}
+        else:
+            set slot 11 of player's current inventory to {@aktiviert2}
+
+on inventory click:
+    if name of event-inventory = "&6Perks" or "&6Perk - Kauf":
+        cancel event
+    if name of event-inventory = "&6Perks":
+        if clicked inventory is not player's inventory:
+            if clicked slot = 10:
+                if slot 10 of player's current inventory = {@kaufen}:
+                    if player does not have the permission "perks.keinfallschaden":
+                        wait 1 tick
+                        open chest inventory with 6 rows named "&6Perk - Kauf" to player
+                        set {_slot} to 0
+                        loop 54 times:
+                            set slot {_slot} of player's current inventory to gray stained glass pane named " "
+                            add 1 to {_slot}
+                            set slot 13 of player's current inventory to diamond boots named "&6Kein Fallschaden" with lore "&7Willst du dieses Perk wirklich kaufen?"
+                            set slot 29 of player's current inventory to {@ja}
+                            set slot 33 of player's current inventory to {@nein}
+            
+            if clicked slot = 11:
+                if slot 11 of player's current inventory = {@kaufen}:
+                    if player does not have the permission "perks.clearchat":
+                        wait 1 tick
+                        open chest inventory with 6 rows named "&6Perk - Kauf" to player
+                        set {_slot} to 0
+                        loop 54 times:
+                            set slot {_slot} of player's current inventory to gray stained glass pane named " "
+                            add 1 to {_slot}
+                            set slot 13 of player's current inventory to paper named "&6ClearChat-Befehl" with lore "&7Willst du dieses Perk wirklich kaufen?"
+                            set slot 29 of player's current inventory to {@ja}
+                            set slot 33 of player's current inventory to {@nein}
+
+on inventory click:
+    if name of event-inventory = "&6Perk - Kauf":
+        if clicked inventory is not player's inventory:
+            if clicked slot = 33:
+                if slot 33 of player's current inventory = {@nein}:
+                    wait 1 tick
+                    close player's inventory
+                    player command "/perks"
+            if clicked slot = 29:
+                if slot 29 of player's current inventory = {@ja}:
+                    if slot 13 of player's current inventory = diamond boots named "&6Kein Fallschaden" with lore "&7Willst du dieses Perk wirklich kaufen?":
+                        if player's balance is greater or equal to 500000:
+                            remove 500000 from player's balance
+                            console command "/lp user %player% permission set perks.keinfallschaden"
+                            wait 1 tick
+                            close player's inventory
+                            set {perks::keinfallschaden::%player's uuid%} to true
+                            send "{@prefix} &aDu hast das &6Kein Fallschaden&a-Perk für &2500.000$ &agekauft."
+                            send "{@prefix} &7Du hast das &6Kein Fallschaden&7-Perk erfolgreich &aaktiviert&7."
+                            stop
+                        else:
+                            wait 1 tick
+                            close player's inventory
+                            send "{@prefix} &cDu hast nicht genug Geld!"
+                            stop
+                    if slot 13 of player's current inventory = paper named "&6ClearChat-Befehl" with lore "&7Willst du dieses Perk wirklich kaufen?":
+                        if player's balance is greater or equal to 200000:
+                            remove 200000 from player's balance
+                            console command "/lp user %player% permission set perks.clearchat"
+                            wait 1 tick
+                            close player's inventory
+                            send "{@prefix} &aDu hast das &6ClearChat-Befehl&a-Perk für &2200.000$ &agekauft."
+                            send "{@prefix} &7Du hast das &6ClearChat-Befehl&7-Perk erfolgreich &aaktiviert&7."
+                            stop
+                        else:
+                            wait 1 tick
+                            close player's inventory
+                            send "{@prefix} &cDu hast nicht genug Geld!"
+                            stop
+
+on inventory click:
+    if name of event-inventory = "&6Perks":
+        if clicked inventory is not player's inventory:
+            if clicked slot = 10:
+                if player has permission "perks.keinfallschaden":
+                    if slot 10 of player's current inventory = {@aktiviert}:
+                        wait 1 tick
+                        set slot 10 of player's current inventory to {@deaktiviert}
+                        delete {perks::keinfallschaden::%player's uuid%}
+                        send "{@prefix} &7Du hast das &6Kein Fallschaden&7-Perk erfolgreich &cdeaktiviert&7."
+                        stop
+                    else if slot 10 of player's current inventory = {@deaktiviert}:
+                        set slot 10 of player's current inventory to {@aktiviert}
+                        set {perks::keinfallschaden::%player's uuid%} to true
+                        send "{@prefix} &7Du hast das &6Kein Fallschaden&7-Perk erfolgreich &aaktiviert&7."
+                        stop
